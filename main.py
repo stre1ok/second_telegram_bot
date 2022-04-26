@@ -38,19 +38,21 @@ def age_registration(message):
             age = int(message.text)
         except Exception:
             bot.send_message(message.from_user.id, 'Only integer numbers!')
+            #age_registration(message) зацикливается
 
     keyboard = types.InlineKeyboardMarkup()
-    key_yes = types.InlineKeyboardButton(text='Да', callback_data='yes')
+    key_yes = types.InlineKeyboardButton(text='Yes', callback_data='yes')
     keyboard.add(key_yes)
-    key_no = types.InlineKeyboardButton(text='Нет', callback_data='no')
+    key_no = types.InlineKeyboardButton(text='No', callback_data='no')
     keyboard.add(key_no)
-    question = 'Тебе ' + str(age) + ' лет? И тебя зовут: ' + name + ' ' + surname + '?'
+    question = f'Your name is {name}, surname is {surname} and your age is {age}, right?'
     bot.send_message(message.from_user.id, text = question, reply_markup=keyboard)
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_worker(call):
+    global name
     if call.data == "yes":
-        bot.send_message(call.message.chat.id, "Приятно познакомиться! Теперь запишу в БД!")
+        bot.send_message(call.message.chat.id, f"Nice to meet you, {name}!")
     elif call.data == "no":
         name = ''
         surname = ''
