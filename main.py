@@ -2,7 +2,7 @@ import telebot
 from telebot import types
 
 bot = telebot.TeleBot("5112916900:AAH3sDGJ1LYO0LmBNRM1BPBaXHbRkLYqWmI")
-#
+
 name = ''
 surname = ''
 age = 0
@@ -52,7 +52,6 @@ def callback_worker(call):
     if call.data == "yes":
         bot.send_message(call.message.chat.id, "Приятно познакомиться! Теперь запишу в БД!")
     elif call.data == "no":
-        elif call.data == "no":
         name = ''
         surname = ''
         age = 0
